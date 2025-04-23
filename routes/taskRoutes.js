@@ -8,7 +8,7 @@ const {
   deleteTask,
   getTaskById,
   toggleTaskStatus,
-  filterTasks
+  getTasksByCategory
 } = require('../controllers/taskController');
 
 const { auth } = require('../middlewares/authMiddleware');
@@ -33,7 +33,8 @@ router.delete('/:id', deleteTask);
 router.get('/task/:id', getTaskById); 
 // Toggle task status
 router.put('/status/:id', toggleTaskStatus); 
-// Filter tasks by category/status
-router.get('/filter/tasks', filterTasks); 
+// Route for getting tasks by category
+router.get('/:userId/category/:category', getTasksByCategory);
+
 
 module.exports = router;

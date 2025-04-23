@@ -155,29 +155,36 @@ exports.toggleTaskStatus = async (req, res) => {
   }
 };
 
-// Filter tasks by category or status
-exports.filterTasks = async (req, res) => {
+// Get all tasks for a specific user by category (Work, Personal, Other)
+exports.getTasksByCategory = async (req, res) => {
   try {
-    const { category, status, userId } = req.query;
+    const userId = req.params.userId;
+    const category = req.params.category;  // Get category from route parameters
 
-    const filter = { user: userId };
-    if (category) {
-      filter.category = category;
-    }
-    if (status) {
-      filter.status = status;
-    }
+    // Find tasks for the user based on the category
+    const tasks = await Task.find({
+      user: userId,
+      category: category,  // Filter by category
+    }).sort({ createdAt: -1 });
 
-    const tasks = await Task.find(filter).sort({ createdAt: -1 });
+    // Return the tasks if found, else return a 404 error
+    if (tasks.length === 0) {
+      return res.status(404).json({
+        message: `No tasks found for the category: ${category}`,
+      });
+    }
 
     return res.status(200).json({ tasks });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ 
-      message: 'Failed to filter tasks' 
+    return res.status(500).json({
+      message: 'Failed to retrieve tasks by category',
     });
   }
 };
+
+
+
 
 // Get all pending tasks for a specific user
 exports.getPendingTasks = async (req, res) => {
