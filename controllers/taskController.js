@@ -183,9 +183,6 @@ exports.getTasksByCategory = async (req, res) => {
   }
 };
 
-
-
-
 // Get all pending tasks for a specific user
 exports.getPendingTasks = async (req, res) => {
   try {
@@ -218,6 +215,38 @@ exports.getCompletedTasks = async (req, res) => {
     console.error(error);
     return res.status(500).json({ 
       message: 'Failed to retrieve completed tasks' 
+    });
+  }
+};
+
+
+// Search tasks by title
+exports.searchTasks = async (req, res) => {
+  try {
+    const { query } = req.query; // Get the search query from the URL query parameters
+    if (!query) {
+      return res.status(400).json({
+        message: 'Search query is required',
+      });
+    }
+
+    // Use a regular expression to search for tasks with a title that matches the query
+    const tasks = await Task.find({
+      title: { $regex: query, $options: 'i' }, // Case-insensitive search
+    }).sort({ createdAt: -1 });
+
+    // If no tasks are found, return a 404 error
+    if (tasks.length === 0) {
+      return res.status(404).json({
+        message: `No tasks found for the search query: ${query}`,
+      });
+    }
+
+    return res.status(200).json({ tasks });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: 'Failed to search tasks',
     });
   }
 };

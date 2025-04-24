@@ -11,7 +11,13 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 connectDB();
 
-app.use(cors());
+// CORS configuration with specific origin and credentials allowed
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace this with the actual URL of your frontend
+  credentials: true, // Allow credentials (cookies, Authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/tasks', taskRoutes);
@@ -27,6 +33,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`App is running at http://localhost:${PORT}`);
 });
-
 
 module.exports = app;
