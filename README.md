@@ -1,45 +1,42 @@
 # TaskManager
 
-TaskManager is a web application for managing tasks, built using Node.js, Express, and MongoDB. It allows users to create, update, delete, and manage tasks effectively while leveraging JWT-based authentication for secure access. 
+**TaskManager** is a web application for managing tasks, built using **Node.js**, **Express**, and **MongoDB**. It allows users to create, update, delete, and manage tasks efficiently, with **JWT-based authentication** for secure access.
 
 ## Features
 
-- **Task Creation:** Users can create new tasks with details such as title, description, and status.
-- **Task Update:** Tasks can be updated as per progress or status.
-- **Task Deletion:** Tasks can be removed when no longer required.
-- **Authentication:** Secure login and registration via JWT tokens.
-- **Email Integration:** Send email notifications for important task updates (configured via environment variables).
+- **Task Creation**: Create new tasks with title, description, and status.
+- **Task Update**: Update tasks as their status or details change.
+- **Task Deletion**: Remove tasks that are no longer needed.
+- **Authentication**: Secure login and registration using JWT tokens.
+- **Email Integration**: Receive email notifications for important task updates (configurable via environment variables).
 
 ## API Documentation
 
-You can find the API documentation and sample requests for the TaskManager project on Postman:  
+View and test the API on Postman:  
 [TaskManager API - Postman Collection](https://www.postman.com/altimetry-geoscientist-6151878/nur-mohammad-apu/collection/l220b51/task-manager?action=share&creator=34936735)
 
 ## Prerequisites
 
-Before you start, make sure you have the following installed on your machine:
+Ensure you have the following installed:
 
-- **Node.js**: [Download Node.js](https://nodejs.org/)
-- **MongoDB**: [Download MongoDB](https://www.mongodb.com/try/download/community)
-- **Postman** (optional, for testing APIs): [Download Postman](https://www.postman.com/downloads/)
+- [Node.js](https://nodejs.org/)
+- [MongoDB](https://www.mongodb.com/try/download/community)
+- [Postman](https://www.postman.com/downloads/) (optional for API testing)
 
 ## Installation
 
-1. Clone the repository:
-
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/nurmohammadapu/TaskManager.git
    cd TaskManager
    ```
 
-2. Install the dependencies:
-
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-3. Set up environment variables by creating a `.env` file in the root of the project directory:
-
+3. **Set environment variables** in a `.env` file in the root directory:
    ```
    JWT_SECRET=your_jwt_secret_key
    MAIL_HOST=your_mail_host
@@ -49,48 +46,53 @@ Before you start, make sure you have the following installed on your machine:
    PORT=your_preferred_port_number
    ```
 
-   Replace the placeholder values with your actual configuration values.
-
-4. Run the application:
-
+4. **Start the server**:
    ```bash
    npm start
    ```
-
-   The server should now be running on the port defined in your `.env` file (default is 5000).
+   The server will run on the specified port (default: `5000`).
 
 ## Environment Variables
 
-The project uses the following environment variables, which need to be defined in the `.env` file:
+Make sure your `.env` file includes:
 
-- `JWT_SECRET`: A secret key for signing JSON Web Tokens (JWT) for authentication.
-- `MAIL_HOST`: The SMTP mail server host to send emails.
-- `MAIL_PASS`: The password for the mail account.
-- `MAIL_USER`: The email address used for sending emails.
-- `MONGO_URI`: MongoDB URI for connecting to the database.
-- `PORT`: The port on which the server will run (default is 5000).
+- `JWT_SECRET`: Secret for signing JWT tokens
+- `MAIL_HOST`: SMTP mail server host
+- `MAIL_PASS`: Mail account password
+- `MAIL_USER`: Mail account username
+- `MONGO_URI`: MongoDB connection URI
+- `PORT`: Port number for the server
 
 ## Usage
 
-- **Register** a new user by sending a POST request to `/api/auth/register` with `email` and `password`.
-- **Login** a user by sending a POST request to `/api/auth/login` with `email` and `password` to obtain a JWT token.
-- Use the JWT token to **authenticate** API requests. Include the token in the `Authorization` header as `Bearer <token>`.
-  
-API endpoints for tasks include:
-- **GET /api/tasks**: Retrieve all tasks.
-- **POST /api/tasks**: Create a new task.
-- **PUT /api/tasks/:id**: Update an existing task.
-- **DELETE /api/tasks/:id**: Delete a task.
+### Authentication
+
+- **Register**: `POST /api/auth/register` with `email`, `password`
+- **Login**: `POST /api/auth/login` with `email`, `password`
+- Use the returned JWT token in the `Authorization` header as `Bearer <token>` for protected routes.
+
+### Task Endpoints
+
+- `GET /api/tasks`: Get all tasks
+- `POST /api/tasks`: Create a task
+- `PUT /api/tasks/:id`: Update a task
+- `DELETE /api/tasks/:id`: Delete a task
 
 ## Testing with Postman
 
-You can import the collection from Postman to quickly test the API.
+Import the Postman collection to quickly test endpoints.
 
-Click [here](https://www.postman.com/altimetry-geoscientist-6151878/nur-mohammad-apu/collection/l220b51/task-manager?action=share&creator=34936735) to view the collection and test the endpoints.
+**Set Postman environment variable:**
+
+- Key: `BASE_URL`
+- Value: `https://taskmanager-yoir.onrender.com`
+
+Then, use `{{BASE_URL}}` in your requests.
+
+[Open Postman Collection](https://www.postman.com/altimetry-geoscientist-6151878/nur-mohammad-apu/collection/l220b51/task-manager?action=share&creator=34936735)
 
 ## Contributing
 
-Contributions are welcome! Feel free to fork the repository, make changes, and submit a pull request.
-
-
+Contributions are welcome!  
+Fork the repo, create a new branch, and submit a pull request.
 
