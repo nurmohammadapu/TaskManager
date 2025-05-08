@@ -4,6 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const cors = require('cors');
 const dotenv = require("dotenv");
+const cookieParser = require('cookie-parser'); 
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -13,12 +14,16 @@ connectDB();
 
 // CORS configuration with specific origin and credentials allowed
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace this with the actual URL of your frontend
-  credentials: true, // Allow credentials (cookies, Authorization headers, etc.)
+  origin: 'http://localhost:3000',
+  credentials: true, 
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
+app.use(cookieParser());
+
+// Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/tasks', taskRoutes);
 
