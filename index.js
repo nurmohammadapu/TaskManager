@@ -14,7 +14,7 @@ connectDB();
 
 // CORS configuration with specific origin and credentials allowed
 const corsOptions = {
-  origin: 'http://localhost:3000',
+   origin: ['http://localhost:3000', 'https://task-manager-chakra-ui.vercel.app'],
   credentials: true, 
 };
 
